@@ -444,6 +444,49 @@ server.tool(
     }
 );
 
+server.tool(
+    "get_page_source",
+    "gets the HTML source of the current page",
+    {},
+    async () => {
+        try {
+            const driver = getDriver();
+            const pageSource = await driver.getPageSource();
+            return {
+                content: [{ type: 'text', text: pageSource }]
+            };
+        } catch (e) {
+            return {
+                content: [{ type: 'text', text: `Error getting page source: ${e.message}` }]
+            };
+        }
+    }
+);
+
+server.tool(
+    "get_outer_html",
+    "gets the outerHTML of an element",
+    {
+        ...locatorSchema
+    },
+    async ({ by, value, timeout = 10000 }) => {
+        try {
+            const driver = getDriver();
+            const locator = getLocator(by, value);
+            const element = await driver.wait(until.elementLocated(locator), timeout);
+            const outerHTML = await element.getAttribute('outerHTML');
+            return {
+                content: [{ type: 'text', text: outerHTML }]
+            };
+        } catch (e) {
+            return {
+                content: [{ type: 'text', text: `Error getting outer HTML: ${e.message}` }]
+            };
+        }
+    }
+);
+
+
 // Resources
 server.resource(
     "browser-status",
