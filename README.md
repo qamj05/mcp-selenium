@@ -432,6 +432,37 @@ None required
   "parameters": {}
 }
 ```
+### `get_page_source`
+Gets the complete HTML source code of the current page.
+
+**Parameters:**
+- None
+
+**Example:**
+```javascript
+{
+  "name": "get_page_source"
+}
+```
+
+### `get_outer_html`
+Gets the outerHTML of a specific element, including the element itself and all its children.
+
+**Parameters:**
+- `by` (string): Locator strategy ("id", "css", "xpath", "name", "tag", "class")
+- `value` (string): Value for the locator
+- `timeout` (number, optional): Maximum wait time in milliseconds (default: 10000)
+
+**Example:**
+```javascript
+{
+  "name": "get_outer_html",
+  "arguments": {
+    "by": "id",
+    "value": "main-content"
+  }
+}
+```
 
 
 ## License
